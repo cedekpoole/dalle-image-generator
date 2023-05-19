@@ -1,9 +1,9 @@
 import Header from "@/components/Header";
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Space_Mono } from "next/font/google";
 import { Metadata } from "next";
 
-const inter = Inter({ subsets: ["latin"] });
+const spaceMono = Space_Mono({ subsets: ["latin"],  weight: ["400", "700"]});
 
 export const metadata: Metadata = {
   title: "AI Image Library",
@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${spaceMono.className} bg-dark-col-700`}>
         {/* Header */}
         <Header />
         {/* Prompt Input */}
