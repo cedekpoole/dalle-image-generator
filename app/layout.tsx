@@ -8,12 +8,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "AI Image Library",
   description: "Generate images with AI",
-  icons: {
-    icon: {
-      url: "/favicon.svg",
-      type: "image/svg",
-    },
-  },
 };
 
 export default function RootLayout({

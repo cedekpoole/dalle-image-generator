@@ -6,16 +6,17 @@ interface HeaderProps {}
 const Header: FC<HeaderProps> = ({}) => {
   return (
     <header className="fixed w-full">
-      <div className="flex w-5/6 mx-auto justify-between">
+      <div className="flex w-5/6 mx-auto justify-between p-5">
         {/* left side */}
-        <div className="flex">
-          <Image src='/favicon.svg' width="64" height="64" alt="brand image" />
-          <div>World</div>
+        <div className="flex gap-3 items-center ">
+          <Image src='/brand-img.svg' width="50" height="64" alt="brand image" />
+          <div>AI Image Library</div>
         </div>
         {/* right side */}
-        <div className="flex">
-          <div>Github Repo</div>
+        <div className="flex gap-3">
           <div>Portfolio</div>
+          <div>|</div>
+          <div>GitHub Repo</div>
         </div>
       </div>
     </header>
