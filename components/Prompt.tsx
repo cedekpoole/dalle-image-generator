@@ -7,7 +7,7 @@ const Prompt: FC = ({}) => {
 
   return (
     <div className="mt-14">
-      <form className="mx-auto w-5/6 flex flex-col lg:flex-row lg:divide-x border shadow-gray-300 rounded-md">
+      <form className="mx-auto w-5/6 flex flex-col lg:flex-row lg:divide-x divide-gray-500 border border-gray-500 shadow-gray-300 rounded-md">
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
