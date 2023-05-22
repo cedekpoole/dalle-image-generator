@@ -7,9 +7,14 @@ import useSWR from "swr";
 const Prompt: FC = ({}) => {
   const [input, setInput] = useState("");
 
-  const { data: suggestion, isLoading, mutate, isValidating } = useSWR('api/suggestion', fetchSuggestion, {
+  const {
+    data: suggestion,
+    isLoading,
+    mutate,
+    isValidating,
+  } = useSWR("api/suggestion", fetchSuggestion, {
     revalidateOnFocus: false,
-  })
+  });
 
   return (
     <div className="mt-14">
@@ -17,16 +22,18 @@ const Prompt: FC = ({}) => {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Enter a prompt..."
-          className="flex-1 outline-none p-1 px-2 rounded-md rounded-b-none lg:rounded-bl-md lg:rounded-r-none text-gray-400"
+          placeholder={suggestion || "Enter a prompt..."}
+          className="flex-1 outline-none p-1 px-2 bg-dark-col-600 rounded-md rounded-b-none lg:rounded-bl-md lg:rounded-r-none text-gray-400"
         />
-        <button type="submit" 
-                disabled={!input} 
-                className={`p-3 ${
-                    input
-                    ? "bg-dark-col-1000 transition-colors duration-200 hover:bg-dark-col-600"
-                    : "text-gray-500 bg-gray-300 cursor-not-allowed"
-                }`}>
+        <button
+          type="submit"
+          disabled={!input}
+          className={`p-3 ${
+            input
+              ? "bg-dark-col-1000 transition-colors duration-200 hover:bg-dark-col-600"
+              : "text-gray-500 bg-gray-400 cursor-not-allowed"
+          }`}
+        >
           Generate
         </button>
         <button
