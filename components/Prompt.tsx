@@ -25,7 +25,10 @@ const Prompt: FC = ({}) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={
-            (load && "Thinking of suggestion...") || suggestion || "Enter a prompt..."}
+            (load && "Thinking of suggestion...") ||
+            suggestion ||
+            "Enter a prompt..."
+          }
           className="flex-1 outline-none p-1 px-2 bg-dark-col-600 rounded-md rounded-b-none lg:rounded-bl-md lg:rounded-r-none text-gray-400"
         />
         <button
@@ -55,8 +58,12 @@ const Prompt: FC = ({}) => {
       </form>
 
       {input && (
-        <p className="pt-3 p-1 italic">Suggestion:{" "} 
-        <span className="text-dark-col-200 ">{suggestion}</span></p>
+        <p className="pt-3 p-1 italic">
+          Suggestion:{" "}
+          <span className="text-dark-col-200 ">
+            {load ? "Thinking of a suggestion..." : suggestion}
+          </span>
+        </p>
       )}
     </div>
   );
