@@ -16,13 +16,16 @@ const Prompt: FC = ({}) => {
     revalidateOnFocus: false,
   });
 
+  const load = isLoading || isValidating;
+
   return (
-    <div className="mt-14">
-      <form className="mx-auto w-5/6 flex flex-col lg:flex-row lg:divide-x divide-gray-500 border border-gray-500 shadow-gray-300 rounded-md">
+    <div className="mt-14 mx-auto w-5/6">
+      <form className=" flex flex-col lg:flex-row lg:divide-x divide-gray-500 border border-gray-500 shadow-gray-300 rounded-md">
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder={suggestion || "Enter a prompt..."}
+          placeholder={
+            (load && "Thinking of suggestion...") || suggestion || "Enter a prompt..."}
           className="flex-1 outline-none p-1 px-2 bg-dark-col-600 rounded-md rounded-b-none lg:rounded-bl-md lg:rounded-r-none text-gray-400"
         />
         <button
@@ -45,10 +48,16 @@ const Prompt: FC = ({}) => {
         <button
           type="button"
           className="p-3 bg-dark-col-500 transition-colors rounded-b-md lg:rounded-r-md lg:rounded-bl-none"
+          onClick={mutate}
         >
           New Suggestion
         </button>
       </form>
+
+      {input && (
+        <p className="pt-3 p-1 italic">Suggestion:{" "} 
+        <span className="text-dark-col-200 ">{suggestion}</span></p>
+      )}
     </div>
   );
 };
