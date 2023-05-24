@@ -1,7 +1,7 @@
 "use client";
 
 import fetchSuggestion from "@/lib/fetchSuggestion";
-import { FC, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 import useSWR from "swr";
 
 const Prompt: FC = ({}) => {
@@ -16,11 +16,37 @@ const Prompt: FC = ({}) => {
     revalidateOnFocus: false,
   });
 
+  const submitPrompt = async (useSuggestion?: boolean) => {
+    const inputPrompt = input;
+    setInput("");
+
+    // text is the prompt that will be sent to the API
+    const text = useSuggestion ? suggestion : inputPrompt;
+
+    const res = await fetch('api/generateImg', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({  prompt: text  })
+    })
+
+    const data = await res.json();
+  }
+
+  const handleSubmit =  async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await submitPrompt();
+  }
+
   const load = isLoading || isValidating;
 
   return (
     <div className="mt-14 mx-auto w-5/6">
-      <form className=" flex flex-col lg:flex-row lg:divide-x divide-gray-500 border border-gray-500 shadow-gray-300 rounded-md">
+      <form 
+      className=" flex flex-col lg:flex-row lg:divide-x divide-gray-500 border border-gray-500 shadow-gray-300 rounded-md"
+      onSubmit={handleSubmit}
+      >
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -45,6 +71,7 @@ const Prompt: FC = ({}) => {
         <button
           type="button"
           className="p-3 bg-dark-col-700 transition-colors duration-200 disabled:text-gray-500 disabled:cursor-not-allowed disabled:bg-gray-300"
+          onClick={() => submitPrompt(true)}
         >
           Use Suggestion
         </button>
