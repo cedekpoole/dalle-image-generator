@@ -3,6 +3,8 @@ const {
   StorageSharedKeyCredential,
 } = require("@azure/storage-blob");
 
+const { app } = require("@azure/functions");
+
 const genSASToken = require("../../lib/genSASToken");
 
 const accountName = process.env.accountName;
@@ -20,22 +22,36 @@ const blobServiceClient = new BlobServiceClient(
 
 const containerName = "images";
 
-
 app.http("getImages", {
-    methods: ["GET"],
-    authLevel: "anonymous",
-    handler: async (request, context) => {
-        const containerClient = blobServiceClient.getContainerClient(containerName);
-        
+  methods: ["GET"],
+  authLevel: "anonymous",
+  handler: async (request, context) => {
+    const containerClient = blobServiceClient.getContainerClient(containerName);
 
-        const blobs = containerClient.listBlobsFlat();
+    const imageURLs = [];
 
-        const blobItems = [];
+    const sasToken = await genSASToken();
 
-        for await (const blob of blobs) {
-            blobItems.push(blob.name);
-        }
-
-        return { body: blobItems };
+    for await (const blob of containerClient.listBlobsFlat()) {
+      const imageUrl = `${blob.name}?${sasToken}`;
+      const url = `https://${accountName}.blob.core.windows.net/${containerName}/${imageUrl}`;
+      imageURLs.push({ url, name: blob.name });
     }
-})
+
+    const ImageUrlsSorted = imageURLs.sort((a, b) => {
+      const aName = a.name.split("_").pop().toString().split(".").shift();
+      const bName = b.name.split("_").pop().toString().split(".").shift();
+      return bName - aName;
+    });
+
+    context.log(
+      `Http function "getImages" processed a request for ${request.url}`
+    );
+
+    return {
+      jsonBody: {
+        imageURLs: ImageUrlsSorted,
+      },
+    };
+  },
+});
