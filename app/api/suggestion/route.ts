@@ -1,7 +1,7 @@
 export async function GET(request: Request) {
 
     // connect to microsoft azure endpoint
-    const response = await fetch('http://localhost:7071/api/getSuggestion', {
+    const response = await fetch('https://ai-image-generator-application-dalle.azurewebsites.net/api/getsuggestion', {
         cache: 'no-store'
     })
 
