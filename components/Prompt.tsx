@@ -4,6 +4,7 @@ import fetchImages from "@/lib/fetchImages";
 import fetchSuggestion from "@/lib/fetchSuggestion";
 import { FC, FormEvent, useState } from "react";
 import useSWR from "swr";
+import toast  from "react-hot-toast";
 
 const Prompt: FC = ({}) => {
   const [input, setInput] = useState("");
@@ -28,6 +29,9 @@ const Prompt: FC = ({}) => {
     // text is the prompt that will be sent to the API
     const text = useSuggestion ? suggestion : inputPrompt;
 
+    const notificationText = text.slice(0, 20)
+    const notification = toast.loading(`Generating image for "${notificationText}"...`);
+
     const res = await fetch('api/generateImg', {
       method: 'POST',
       headers: {
@@ -37,6 +41,16 @@ const Prompt: FC = ({}) => {
     })
 
     const data = await res.json();
+
+    if (data.error) {
+      toast.error(data.error, {
+        id: notification,
+      })
+    } else {
+      toast.success(`Your image has been generated!`, {
+        id: notification,
+      });
+    }
 
     refreshImages()
   }
