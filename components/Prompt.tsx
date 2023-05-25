@@ -1,5 +1,6 @@
 "use client";
 
+import fetchImages from "@/lib/fetchImages";
 import fetchSuggestion from "@/lib/fetchSuggestion";
 import { FC, FormEvent, useState } from "react";
 import useSWR from "swr";
@@ -15,6 +16,10 @@ const Prompt: FC = ({}) => {
   } = useSWR("api/suggestion", fetchSuggestion, {
     revalidateOnFocus: false,
   });
+
+  const { mutate: refreshImages } = useSWR("api/getImages", fetchImages, {
+    revalidateOnFocus: false,
+  })
 
   const submitPrompt = async (useSuggestion?: boolean) => {
     const inputPrompt = input;
@@ -32,6 +37,8 @@ const Prompt: FC = ({}) => {
     })
 
     const data = await res.json();
+
+    refreshImages()
   }
 
   const handleSubmit =  async (e: FormEvent<HTMLFormElement>) => {
@@ -62,7 +69,7 @@ const Prompt: FC = ({}) => {
           disabled={!input}
           className={`p-3 ${
             input
-              ? "bg-dark-col-1000 transition-colors duration-200 hover:bg-dark-col-600"
+              ? "bg-dark-col-800 transition-colors duration-200 hover:bg-dark-col-1000"
               : "text-gray-500 bg-gray-400 cursor-not-allowed"
           }`}
         >
@@ -70,14 +77,14 @@ const Prompt: FC = ({}) => {
         </button>
         <button
           type="button"
-          className="p-3 bg-dark-col-700 transition-colors duration-200 disabled:text-gray-500 disabled:cursor-not-allowed disabled:bg-gray-300"
+          className="p-3 bg-dark-col-700 transition-colors duration-200 disabled:text-gray-500 disabled:cursor-not-allowed disabled:bg-gray-300 hover:bg-dark-col-900"
           onClick={() => submitPrompt(true)}
         >
           Use Suggestion
         </button>
         <button
           type="button"
-          className="p-3 bg-dark-col-500 transition-colors rounded-b-md lg:rounded-r-md lg:rounded-bl-none"
+          className="p-3 bg-dark-col-500 transition-colors hover:bg-dark-col-800 duration-200 rounded-b-md lg:rounded-r-md lg:rounded-bl-none"
           onClick={mutate}
         >
           New Suggestion
