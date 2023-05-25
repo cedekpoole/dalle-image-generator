@@ -11,7 +11,7 @@ const Header: FC<HeaderProps> = ({}) => {
         {/* left side */}
         <div className="flex gap-3 items-center ">
           <Image src='/brand-img.svg' width="50" height="64" alt="brand image" />
-          <div className="text-lg">AI Image Library</div>
+          <div className="text-lg">AI Image Gallery</div>
         </div>
         {/* right side */}
         <div className="hidden md:flex gap-3">
