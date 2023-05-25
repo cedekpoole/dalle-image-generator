@@ -6,7 +6,7 @@ interface HeaderProps {}
 
 const Header: FC<HeaderProps> = ({}) => {
   return (
-    <header className="sticky w-full z-50 shadow-md bg-dark-col-600 border-b border-dark-col-1000">
+    <header className="sticky top-0 w-full z-50 shadow-md bg-dark-col-600 border-b border-dark-col-1000">
       <div className="flex w-5/6 mx-auto justify-between py-5 items-center">
         {/* left side */}
         <div className="flex gap-3 items-center ">
