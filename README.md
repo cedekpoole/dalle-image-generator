@@ -28,6 +28,8 @@ To use the app, follow these steps:
 4. You can also save the image by hovering over a specific one and clicking on the copy icon. Once you have copied the url, you can copy and paste it in a new tab and the image will automatically begin downloading.
 5. Not only will your personal collection show, images created by other users will also be displayed in the gallery. 
 
+![Ai Image Gallery](./assets/images/ai-gallery.png)
+
 
 ## Contributing 
 
@@ -38,3 +40,12 @@ This project is open source and welcomes contributions from anyone who is intere
 3. Push your branch to your forked repository
 4. Create a pull request to the main repository
 5. Wait for your pull request to be reviewed and merged
+
+## Credits 
+- The main premise of this project came from [Sonny Sangha](https://www.papareact.com/)
+
+---
+
+## Questions
+If you have any questions, please contact me via email at: cameron.edek.poole@gmail.com
+You are also welcome to follow and message me on [LinkedIn](https://www.linkedin.com/in/cam-edek-poole/) or contact me via [this form](https://cedekpoole.com/contact)
